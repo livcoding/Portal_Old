@@ -1,0 +1,17 @@
+
+        @import url("callout/vista/nitobi.callout.css");
+    
+        @import url("callout/impact/nitobi.callout.css");
+    
+        @import url("callout/xp/nitobi.callout.css");
+    
+        @import url("callout/clean/nitobi.callout.css");
+    .ntb-effects-small {
+	clear:both;
+	display:block;
+	float:none;
+	height:0px;
+	//height:1px;
+	overflow:hidden;
+	width:auto;
+}

@@ -1,0 +1,33 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBUtility {
+	private static Connection connection = null;
+
+	public static Connection getConnection() {
+		if (connection != null)
+			return connection;
+		else {
+			// Store the database URL in a string
+			String serverName = "172.16.7.19";
+                        //String serverName = "172.16.68.45";
+			String portNumber = "1527";
+			String sid = "camp11";
+                        //String sid = "campus";
+			String dbUrl = "jdbc:oracle:thin:@" + serverName + ":" + portNumber
+					+ ":" + sid;
+			try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// set the url, username and password for the database
+			connection = DriverManager.getConnection(dbUrl, "JIIT2111", "JIIT2111");
+                        //connection = DriverManager.getConnection(dbUrl, "JIIT0606", "JIIT0606");
+                        //connection = DriverManager.getConnection(dbUrl, "campus", "jiitjuitjuet123#");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return connection;
+		}
+	}
+}

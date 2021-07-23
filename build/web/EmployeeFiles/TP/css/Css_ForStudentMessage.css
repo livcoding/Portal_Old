@@ -1,0 +1,119 @@
+/* 
+    Document   : Css_ForStudentMessage
+    Created on : Aug 30, 2014, 10:51:34 AM
+    Author     : Gyanendra.Bhatt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+#form-body1{
+      width:900px;
+      height:420px;
+      -webkit-border-radius: 63px;
+      -moz-border-radius: 63px;
+      border:2px solid #121200;
+      margin-left:6%;
+      margin-right:10%;
+}
+
+body{
+    background-color:#fce9c5;
+}
+
+#back{
+    width:5%;
+    margin-left:86%;
+}
+
+#heading{
+background-color:silver;
+width:90%;
+margin-left:5%;
+margin-right:5%;
+}
+
+
+#footer{
+background-color:silver;
+width:118%;
+margin-right:5%;
+margin-LEFT:-8%;
+}
+
+h1{
+     color:#a52a2a ;
+     FONT-SIZE: medium;
+     FONT-FAMILY: arial;
+}
+
+#stud_detail{
+   width:90%;
+   margin-left:5%;
+   margin-right:5%;
+   
+}
+
+table.Entry_Form{
+    margin-left:15%;
+    margin-right:15%;
+    border:3px;
+    border-color:black;
+    width:80%;
+    border-collapse:collapse;
+}
+
+table.Entry_Form tr{
+    height:50%;
+    
+}
+
+table.Entry_Form td.headingsTD{
+    width:10%;
+  }
+  
+.Formheadings{
+    font-size:100%;
+    font-style:normal;
+    font-weight:bold;
+}
+
+.SubHeadings{
+    font-size:70%;
+    font-style:normal;
+    font-weight:bold;
+    color:green;
+
+}
+select{
+    width:auto;
+    height:100px;
+
+}
+.dates{
+    width:110px;
+}
+
+.lastbutton{
+        background-color:#88000 ;
+        border-color:black;
+        font-weight:Bold;
+        FONT-FAMILY: Arial;
+        FONT-SIZE: 10pt;
+        color: black;
+        HEIGHT: 25px;
+        VERTICAL-ALIGN: top;
+        WIDTH: 55px;
+        height:20px;
+        
+}
+   
+

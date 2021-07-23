@@ -1,0 +1,32 @@
+.layer1 {
+margin: 1px;
+padding: 0;
+width: 400px;
+}
+ 
+.heading {
+margin: 1px;
+width: 400px;
+padding: 1px 3px;
+color: #fff;
+background-color:#F8E8CA;
+}
+.content {
+padding: 5px 10px;
+width:405px;
+background-color:#fafafa;
+/*/*/border:3px solid #FFCF83;/* */
+}
+p { padding: 5px 0; }
+
+.contentn {
+padding: 5px 5px;
+background:#ccc;
+height:150px;
+width:400px;
+overflow:auto;
+
+
+background-color:#fafafa;
+}
+p { padding: 5px 0; }

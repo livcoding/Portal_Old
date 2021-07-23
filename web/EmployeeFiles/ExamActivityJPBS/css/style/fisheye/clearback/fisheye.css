@@ -1,0 +1,26 @@
+.ntb-fisheye-menubackground
+{
+	background-color: transparent;
+	border: 0px;
+}
+
+.ntb-fisheye-label
+{
+	border: 1px solid #666666;
+	padding: 3px 5px;
+	background-color: #FCFCFC;
+	font-family: "trebuchet ms", georgia, tahoma, verdana;
+	font-size: 12px;
+	text-align: center;
+	font-weight: bold;
+	opacity = 0.75;
+}
+.ntb-effects-small {
+	clear:both;
+	display:block;
+	float:none;
+	height:0px;
+	//height:1px;
+	overflow:hidden;
+	width:auto;
+}

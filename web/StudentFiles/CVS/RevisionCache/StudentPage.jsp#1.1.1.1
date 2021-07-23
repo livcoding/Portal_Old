@@ -1,0 +1,102 @@
+<%@ page language="java" import="java.sql.*,tietwebkiosk.*" %>
+<%@ page errorPage="../CommonFiles/ExceptionHandler.jsp" %>  
+<%  
+
+	/*
+	' **********************************************************************************************************
+	' *													   *
+	' * File Name:	MainFrame.JSP		[For Employee]						           *
+	' * Author:		Ashok Kumar Singh 							           *
+	' * Date:		20th Oct 2006
+	' * Version:		1.0									   *	
+	' **********************************************************************************************************
+*/
+String URL="";
+String qry="",qry1="";
+ResultSet  rs1=null;
+try
+{
+if (session.getAttribute("MemberCode")!=null && session.getAttribute("MemberType")!=null)
+{
+OLTEncryption enc=new OLTEncryption();
+String mInst="";
+if (session.getAttribute("InstituteCode")==null)
+{
+	mInst="";
+}
+else
+{
+	mInst=session.getAttribute("InstituteCode").toString().trim();
+}
+String mChkMemID=enc.decode(session.getAttribute("MemberID").toString().trim());
+
+
+/*qry="Select '1' data From STUDENTRESULT A where A.institutecode='"+mInst +"' And A.studentid= '"+mChkMemID+"' and nvl(Fail,'N')='Y'";
+qry=qry+" UNION Select '1' Data From NRSTUDENTFAILSUBJECTS A where Institutecode='"+mInst +"' And A.studentid= '"+mChkMemID+"'";*/
+qry="select 'Y'  from StudentMaster A, StudentMedicalHistory B Where A.STUDENTID=B.STUDENTID AND B.studentid='"+mChkMemID+"'";
+DBHandler db=new DBHandler();
+ResultSet  rs=null;
+rs=db.getRowset(qry);
+URL="PersonalFiles/StudentMedicalHistoryEntry.jsp";
+//URL="Academic/NRBackLogSubjectListFistScreen.jsp";
+
+if (!rs.next())
+{
+	response.sendRedirect(URL);  
+}
+else
+{
+
+/*
+qry1="Select 'Y' data From STUDENTRESULT A where A.institutecode='"+mInst +"' And A.studentid= '"+mChkMemID+"' and nvl(Fail,'N')='Y' ";
+qry1=qry1+" UNION Select 'Y' Data From NRSTUDENTFAILSUBJECTS A where a.Institutecode='"+mInst +"' And A.studentid= '"+mChkMemID+"'";
+//System.out.print(qry1);
+rs1=db.getRowset(qry1);
+
+String URL1="Academic/NRBackLogSubjectListFistScreen.jsp";
+
+if (rs1.next())
+{
+	//System.out.print("hjkhjkkkj");
+	response.sendRedirect(URL1);  
+}
+else
+{*/
+%>
+<html>
+ 
+   <frameset border=0 Rows = "16%,84%" FrameBorder=0>
+      <frame  noresize  scrolling=no border=0 src = "../CommonFiles/TopTitle.jsp"/>
+      <frameset border=0 cols = "14%,86%" FrameBorder=0>
+
+	   <frameset border=0 Rows = "11.8%,89.2%" FrameBorder=0>
+				 <frame noresize  scrolling=no  border=0 src ="../CommonFiles/leftstart.jsp"/>
+				 <frame  noresize  scrolling=auto border=0 src ="FrameLeftStudent.jsp"/ >
+			</frameset>
+
+
+
+          
+          <frame noresize  border=0 Name="DetailSection" src ="PersonalFiles/ShowAlertMessageSTUD.jsp" SCROLLING=AUTO/>
+      </frameset>
+   </frameset>
+</html>
+<%
+//}
+}
+
+}
+else
+{
+ %>
+	<br>
+	Session timeout! Please <a href="../index.jsp">Login</a> to continue...
+ <%
+}
+
+
+}
+catch(Exception e)
+{
+}
+%>

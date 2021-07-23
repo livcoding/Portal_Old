@@ -1,0 +1,94 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jilit.db;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.model.Sheet;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+ *
+ * @author nipun.gupta
+ */
+public class MarksEntryExcelFileUploadDB {
+
+    private final String UPLOAD_DIRECTORY = "D://UPLOAD";
+    String marks = "";
+
+    public void selectSaveUpdateData(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        if (ServletFileUpload.isMultipartContent(req)) {
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                        new DiskFileItemFactory()).parseRequest(req);
+
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        String name = new File(item.getName()).getName();
+                        item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        try {
+
+            FileInputStream file = new FileInputStream(new File("D://UPLOAD//MarksEntryTempPage.xlsx"));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            //Get first/desired sheet from the workbook
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            //Iterate through each rows one by one
+            //  Iterator<Row> rowIterator = sheet.iterator();
+            for (Row row : sheet) {
+                for (int cn = 0; cn < row.getLastCellNum(); cn++) {
+
+                    Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
+                    //System.out.println("CELL: " + cn + " --> " + cell.toString());
+                    if(cn==3){
+                    marks=marks+cell.toString()+",";
+                    }
+                }
+            }
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
+        try {
+
+            res.sendRedirect("/JIIT/EmployeeFiles/ExamActivity/MarksEntryGridVersion.jsp?testMarks=" + marks);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}

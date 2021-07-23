@@ -1,0 +1,106 @@
+    <div class="menutitle" onclick="SwitchMenu('sub7')">Admin Option <img src="../Images/arrow.gif"></div>
+    <span class="submenu" id="sub7">
+	<%
+	qry="Select WEBKIOSK.ShowLink('0','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Signup in bulk (create LoginID for New Students)" href="../CommonFiles/SignUpStudents.jsp"><FONT face="Arial" color=white size=2>Bulk Signup of<br><font color='#de6400'>&nbsp;&nbsp;&nbsp;</font>Student</font></a><br>
+	
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('70','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Signup Member(create LoginID for Employee/Student/Visiting Staff/Guest one by one) " href="../CommonFiles/SignUp.jsp"><FONT face="Arial" color=white size=2>Signup Member</font></a><br>	
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Undelivered Student ID & Password for Student" href="AdminOptions/UndeliveredIdOnEmail.jsp"><FONT face="Arial" color=white size=2>Undelivered ID</font></a><br>	
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('38','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Change Role of Employee" href="AdminOptions/ChangeEmpRole.jsp"><FONT face="Arial" color=white size=2>Change Role</font></a><br>	
+	<%
+	}
+	qry="Select WEBKIOSK.ShowLink('39','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Reset Password of any Member " href="AdminOptions/ResetPasswordForciblyNew.jsp"><FONT face="Arial" color=white size=2>Reset Password</font></a><br>
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('67','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Assign/Reset Employee KIOSK Page Heading/Title " href="AdminOptions/WebPageTitle.jsp"><FONT face="Arial" color=white size=2>Webpage Title</font></a><br>
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('68','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Deactive WebKiosk Member" href="AdminOptions/DeactiveWebkioskMember.jsp"><FONT face="Arial" color =white size=2>Lock/Unlock ID</font></a><br>	
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('81','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Locked WebKiosk Member List" href="AdminOptions/ListLockedMember.jsp"><FONT face="Arial" color =white size=2>Locked Members</font></a><br>	
+	<%
+	}
+	
+	qry="Select WEBKIOSK.ShowLink('101','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="Change WebKiosk Marquee Text" href="AdminOptions/KioskMarqueeText.jsp"><FONT face="Arial" color =white size=2>Change Marquee</font></a><br>	
+	<%
+	}
+
+
+	qry="Select WEBKIOSK.ShowLink('90','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="View Employee Information (Department wise)" href="../CommonFiles/DeptwiseEmpViewEmpInfo.jsp"><FONT face="Arial" color =white size=2>Department wise<br><font color='#de6400'>&nbsp;&nbsp;&nbsp;</font>Employee Info.</font></a><br>	
+	<%
+	}
+
+	qry="Select WEBKIOSK.ShowLink('72','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="View Employee Information" href="../CommonFiles/EmpViewEmpInfo.jsp"><FONT face="Arial" color =white size=2>Employee Info</font></a><br>	
+	<%
+	}
+
+
+	qry="Select WEBKIOSK.ShowLink('71','"+ mMemberID +"','G','"+mRole+"','"+ mIPAddress +"') SL from dual";
+      Rs = db.getRowset(qry);
+      if (Rs.next() && Rs.getString("SL").equals("Y"))
+	{
+	%>
+	<img src="../Images/bullet4.gif">&nbsp;<a  target="DetailSection" title="View Students Information" href="../CommonFiles/EmpViewStdInfo.jsp"><FONT face="Arial" color =white size=2>Student Info</font></a><br>	
+	<%
+	}
+	%>
+   </span>

@@ -1,0 +1,102 @@
+----------------------------------------------------------------------------------------------------
+
+
+Create a backup of PR#STUDENTSUBJECTCHOICE table and run this PL/SQL from sql prompt in live user. 
+
+
+Commit and then check data, although i have chcked using following query 
+
+select studentid,ElectiveCode,count(SubjectID) from PR#STUDENTSUBJECTCHOICE
+ where examcode='2012ODDSEM' and subjectType<>'C' and subjectrunning='Y'   
+group by studentid,ElectiveCode order by StudentID,ElectiveCode 
+
+
+-----------------------------------------------------------------------------------------
+
+
+declare
+pExamCode Varchar2(11):='2012ODDSEM';
+pPREVENTCODE Varchar2(20):='PRS-2012ODDSEM';
+C Number:=0;
+	Cursor C1 is SELECT  MEMBERID ,NOOFELESUBJECTSCHOICES NOS  FROM PREVENTS WHERE   PREVENTCODE=pPREVENTCODE AND  MEMBERTYPE='S' AND INSTITUTECODE='JIIT' 
+	AND NVL(NOOFELESUBJECTSCHOICES,0)>0  
+	ORDER BY NOOFELESUBJECTSCHOICES DESC;
+
+	Cursor CPDE is SELECT  MEMBERID ,1 NOS  FROM PREVENTS WHERE   PREVENTCODE=pPREVENTCODE AND  MEMBERTYPE='S' AND INSTITUTECODE='JIIT' 
+	ORDER BY NOOFELESUBJECTSCHOICES DESC;
+
+
+Begin
+	
+	Update pr#studentsubjectchoice 
+	set SubjectRunning='N' where subjecttype='E' and examcode=pExamCode;
+
+	-- For Other Than PDE Subjects
+	------------------------------------------------------
+	For I in C1
+	Loop
+		C:=1;
+		--DBMS_OUTPUT.PUT_LINE('aaaa '||I.NOS);
+		For J In  (SELECT Stud.ACADEMICYEAR, Stud.PROGRAMCODE, Stud.TAGGINGFOR, Stud.SECTIONBRANCH,Stud.SEMESTER, 
+				   Stud.SEMESTERTYPE, Stud.STUDENTID, Stud.SUBJECTID, Stud.SUBJECTTYPE, Stud.ELECTIVECODE,Stud.CHOICE 
+				   FROM PR#STUDENTSUBJECTCHOICE Stud  WHERE Stud.INSTITUTECODE ='JIIT'  AND Stud.EXAMCODE=pExamCode 
+				   AND NVL(DEACTIVE,'N')='N'  AND (Stud.EXAMCODE,Stud.INSTITUTECODE, Stud.ACADEMICYEAR,Stud.PROGRAMCODE,Stud.TAGGINGFOR, 				  Stud.SECTIONBRANCH, Stud.SEMESTER,  Stud.SubjectID)
+				   IN ( SELECT PESC.EXAMCODE,PESC.INSTITUTECODE, PESC.ACADEMICYEAR,PESC.PROGRAMCODE, PESC.TAGGINGFOR, PESC.SECTIONBRANCH, 					PESC.SEMESTER , PESC.SubjectID 
+				   		FROM PR#ELECTIVESUBJECTS PESC WHERE PESC.INSTITUTECODE ='JIIT'
+						AND PESC.EXAMCODE=pExamCode	AND NVL(PESC.SUBJECTRUNNING,'N')='Y'
+						AND NVL(PESC.DEACTIVE,'N')='N' AND Basket='D'
+					   ) AND STUDENTID=I.MEMBERID
+					ORDER BY   Stud.SEMESTERTYPE, Stud.STUDENTID, Stud.SUBJECTTYPE, Stud.ELECTIVECODE,Stud.CHOICE)
+		Loop
+		
+		--DBMS_OUTPUT.PUT_LINE('aaaa '||J.Choice);
+		If C<=I.NOS Then
+			  	        Update PR#STUDENTSUBJECTCHOICE
+					SET SUBJECTRUNNING='Y'
+					Where INSTITUTECODE='JIIT' And EXAMCODE=pExamCode and INSTITUTECODE=J.INSTITUTECODE	And ACADEMICYEAR=J.ACADEMICYEAR
+					And PROGRAMCODE=J.PROGRAMCODE And TAGGINGFOR=J.TAGGINGFOR And SECTIONBRANCH=J.SECTIONBRANCH
+					And SEMESTER=J.SEMESTER And STUDENTID=J.STUDENTID aND SUBJECTID=J.SUBJECTID 
+					And nvl(Deactive,'N')='N';
+					--DBMS_OUTPUT.PUT_LINE('aaaa'||J.SUBJECTID ||'---'||J.Choice);
+		End if;
+		C:=C+1;
+		End Loop;
+	End Loop;
+	------------------------------------------------------
+
+
+	-- For PDE Subjects Only
+	------------------------------------------------------
+	Begin
+	For I in CPDE
+	Loop
+		C:=1;
+		For J In  (SELECT Stud.ACADEMICYEAR, Stud.PROGRAMCODE, Stud.TAGGINGFOR, Stud.SECTIONBRANCH,Stud.SEMESTER, 
+				   Stud.SEMESTERTYPE, Stud.STUDENTID, Stud.SUBJECTID, Stud.SUBJECTTYPE, Stud.ELECTIVECODE,Stud.CHOICE 
+				   FROM PR#STUDENTSUBJECTCHOICE Stud  WHERE Stud.INSTITUTECODE ='JIIT'  AND Stud.EXAMCODE=pExamCode 
+				   AND NVL(DEACTIVE,'N')='N'  AND (Stud.EXAMCODE,Stud.INSTITUTECODE, Stud.ACADEMICYEAR,Stud.PROGRAMCODE,Stud.TAGGINGFOR, 				  Stud.SECTIONBRANCH, Stud.SEMESTER,  Stud.SubjectID)
+				   IN ( SELECT PESC.EXAMCODE,PESC.INSTITUTECODE, PESC.ACADEMICYEAR,PESC.PROGRAMCODE, PESC.TAGGINGFOR, PESC.SECTIONBRANCH, 					PESC.SEMESTER , PESC.SubjectID 
+				   		FROM PR#ELECTIVESUBJECTS PESC WHERE PESC.INSTITUTECODE ='JIIT'
+						AND PESC.EXAMCODE=pExamCode	AND NVL(PESC.SUBJECTRUNNING,'N')='Y'
+						AND NVL(PESC.DEACTIVE,'N')='N' AND Basket='B'
+				     ) AND STUDENTID=I.MEMBERID
+					ORDER BY Stud.ACADEMICYEAR, Stud.PROGRAMCODE, Stud.TAGGINGFOR, Stud.SECTIONBRANCH,Stud.SEMESTER, 
+				   Stud.SEMESTERTYPE, Stud.STUDENTID, Stud.SUBJECTTYPE, Stud.ELECTIVECODE,Stud.CHOICE,Stud.SUBJECTID)
+		Loop
+		
+		If C<=1Then
+			  	        Update PR#STUDENTSUBJECTCHOICE
+					SET SUBJECTRUNNING='Y'
+					Where INSTITUTECODE='JIIT' And EXAMCODE=pExamCode and INSTITUTECODE=J.INSTITUTECODE	And ACADEMICYEAR=J.ACADEMICYEAR
+					And PROGRAMCODE=J.PROGRAMCODE And TAGGINGFOR=J.TAGGINGFOR And SECTIONBRANCH=J.SECTIONBRANCH
+					And SEMESTER=J.SEMESTER And STUDENTID=J.STUDENTID aND SUBJECTID=J.SUBJECTID 
+					And nvl(Deactive,'N')='N';
+		End if;
+		C:=C+1;
+		End Loop;
+	End Loop;
+	End;
+	--------------------------------------------------
+
+End;
+/

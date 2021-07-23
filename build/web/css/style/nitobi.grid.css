@@ -1,0 +1,15 @@
+
+        @import url("grid/nitobi/toolbar/default/toolbar.css");
+    
+        @import url("grid/lightblue/nitobi.grid.css");
+    
+        @import url("grid/nitobi/nitobi.grid.css");
+    .ntb-effects-small {
+	clear:both;
+	display:block;
+	float:none;
+	height:0px;
+	//height:1px;
+	overflow:hidden;
+	width:auto;
+}

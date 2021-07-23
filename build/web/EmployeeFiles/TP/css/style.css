@@ -1,0 +1,17 @@
+/* 
+    Document   : style
+    Created on : Sep 2, 2014, 2:46:02 PM
+    Author     : Gyanendra.Bhatt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 80%;
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/JIIT2020" cachingAllowed="false"  >
+<Resource password="JIIT16072020" username="JIIT16072020" driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@172.16.7.156:1521:cmp11" type="javax.sql.DataSource" name="jdbc/webkioskdb" maxWait="10000" maxIdle="2" maxActive="4" timeBetweenEvictionRunsMillis="60000" auth="Container"/>
+
+</Context>

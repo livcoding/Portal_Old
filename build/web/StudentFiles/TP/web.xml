@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XMLSPY v5 rel. 2 U (http://www.xmlspy.com) by sumit kumar (JIL-IT) -->
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+
+<web-app>
+<listener>
+        <listener-class>lotusmail.ContextListener</listener-class>
+    </listener>
+
+<context-param> 
+    <description>Location to store uploaded file</description> 
+    <param-name>file-upload</param-name> 
+    <param-value>
+	https://webkiosk.jiit.ac.in/StudentFiles/TP/resume
+      </param-value> 
+</context-param>
+</web-app>
